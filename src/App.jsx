@@ -9,8 +9,11 @@ import PrivacyPolicyPage from "./pages/about-us/privacy-policy-page";
 import TermsPage from "./pages/about-us/terms-page";
 import LoginPage from "./pages/auth/login-page";
 import RegisterPage from "./pages/auth/register-page";
+import { useSelector } from "react-redux";
 
 function App() {
+  const categoryState = useSelector((state) => state.categoryState);
+
   /*
 /
 /category/:slug
