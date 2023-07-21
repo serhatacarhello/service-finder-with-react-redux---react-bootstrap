@@ -9,10 +9,23 @@ import PrivacyPolicyPage from "./pages/about-us/privacy-policy-page";
 import TermsPage from "./pages/about-us/terms-page";
 import LoginPage from "./pages/auth/login-page";
 import RegisterPage from "./pages/auth/register-page";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import useApi from "./hooks/useApi";
+import { useEffect } from "react";
+import { setCategories } from "./features/redux/reducers/categorySlice";
+import CategoryDetailPage from "./pages/category-detail-page";
 
 function App() {
-  const categoryState = useSelector((state) => state.categoryState);
+  const api = useApi();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async () => {
+      const response = await api.get("public/categories/listMainCategories");
+      // console.log(response.data.data);
+      dispatch(setCategories(response.data.data));
+    })();
+  }, []);
 
   /*
 /
@@ -36,6 +49,8 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<MainPage />} />
+
+        <Route path="/category/:slug" element={<CategoryDetailPage />} />
 
         <Route path="/auth">
           <Route path="login" element={<LoginPage />} />
