@@ -11,9 +11,7 @@ export default function CategoryDetailPage() {
   const params = useParams();
   const api = useApi();
   const [categoryDetailData, setCategoryDetailData] = useState(null);
-  //   const [categoryBlogs, setCategoryBlogs] = useState(null);
-  //   const [categoryServices, setCategoryServices] = useState(null);
-  //   const [categoryChildren, setCategoryChildren] = useState(null);
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -22,13 +20,13 @@ export default function CategoryDetailPage() {
         `public/categories/getBySlug/${params.slug}`
       );
       setCategoryDetailData(response.data?.data);
-      //   setCategoryServices(response.data.data?.services);
-      //   setCategoryBlogs(response.data.data?.blogs);
-      //   setCategoryChildren(response.data.category?.children);
-      console.warn(response.data.data);
+      console.warn(
+        "categoryDetailPageuseEffectData<<<<<<<<<<<<<<<",
+        response.data.data
+      );
     })();
     setLoading(false);
-  }, []);
+  }, [params.slug]);
 
   if (loading) return;
   return (
@@ -45,7 +43,6 @@ export default function CategoryDetailPage() {
       <Row className="justify-content-center">
         <SubCategories categoryDetail={categoryDetailData} />
       </Row>
-      <div className="row">detail slug:{params.slug}</div>;
     </Container>
   );
 }

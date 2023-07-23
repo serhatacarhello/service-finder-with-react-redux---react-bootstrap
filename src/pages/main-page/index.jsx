@@ -1,29 +1,25 @@
 import { useSelector } from "react-redux";
 import AllServices from "./components/all-services";
 import { Link } from "react-router-dom";
+import formatDate from "../../utils/DateUtils";
+import SubHeader from "../../components/subHeader";
+import Search from "./components/search";
 
 export default function MainPage() {
   const categories = useSelector((state) => state.categoryState.categories);
   // console.log("🚀 ~ file: index.jsx:5 ~ MainPage ~ categories:", categories);
 
-  const formatDate = (dateString) => {
-    const dateObject = new Date(dateString);
-    return dateObject.toLocaleDateString();
-  };
-
   return (
     <>
       <main className="position-relative">
-        <div className="pricing-header p-3 pb-md-4 mx-auto text-center">
-          <h1 className="display-4 fw-normal">
-            Welcome To Service Finder Project
-          </h1>
+        <SubHeader title={" Welcome To Service Finder Project"}>
           <p className="fs-5 text-muted">
             Quickly build an effective pricing table for your potential
             customers with this Bootstrap example. It’s built with default
             Bootstrap components and utilities with little customization.
           </p>
-        </div>
+        </SubHeader>
+        <Search />
         <div className="popular-services-header p-3 pb-md-4 mx-auto text-center">
           <h4 className="display-5 fw-normal">Popular Services</h4>
           <div className="row row-cols-1 row-cols-lg-3 mb-3 text-center">

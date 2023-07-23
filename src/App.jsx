@@ -9,11 +9,12 @@ import PrivacyPolicyPage from "./pages/about-us/privacy-policy-page";
 import TermsPage from "./pages/about-us/terms-page";
 import LoginPage from "./pages/auth/login-page";
 import RegisterPage from "./pages/auth/register-page";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import useApi from "./hooks/useApi";
 import { useEffect } from "react";
 import { setCategories } from "./features/redux/reducers/categorySlice";
 import CategoryDetailPage from "./pages/category-detail-page";
+import ServiceDetailPage from "./pages/service-detail-page";
 
 function App() {
   const api = useApi();
@@ -42,6 +43,7 @@ function App() {
  /about-us/privacy-policy
  /about-us/terms
 
+
 */
 
   return (
@@ -51,6 +53,7 @@ function App() {
         <Route path="/" element={<MainPage />} />
 
         <Route path="/category/:slug" element={<CategoryDetailPage />} />
+        <Route path="/services/:slug" element={<ServiceDetailPage />} />
 
         <Route path="/auth">
           <Route path="login" element={<LoginPage />} />

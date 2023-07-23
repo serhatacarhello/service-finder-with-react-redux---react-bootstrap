@@ -1,6 +1,17 @@
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { isLogout } from "../../features/redux/reducers/authSlice";
 
 const Header = () => {
+  const authState = useSelector((state) => state.auth);
+  console.log("🚀 ~ file: index.jsx:7 ~ Header ~ authState:", authState);
+
+  const dispatch = useDispatch();
+
+  function handleLogout() {
+    dispatch(isLogout());
+  }
+
   return (
     <>
       <header>
@@ -36,34 +47,44 @@ const Header = () => {
               About Us
             </Link>
 
-            <Link
-              className="me-3 p-2 text-dark text-decoration-none"
-              to="/auth/login"
-            >
-              Login
-            </Link>
-            <Link
-              className="me-3 p-2 text-dark text-decoration-none"
-              to="/auth/register"
-            >
-              Register
-            </Link>
-            <Link
-              className="me-3 p-2 text-dark text-decoration-none"
-              to="/user"
-            >
-              My Account
-            </Link>
-
-            <a
-              className="p-2 text-dark text-decoration-none"
-              href="#"
-              onClick={() => {
-                //logout
-              }}
-            >
-              Logout
-            </a>
+            {!authState?.user ? (
+              <>
+                <Link
+                  className="me-3 p-2 text-dark text-decoration-none"
+                  to="/auth/login"
+                >
+                  Login
+                </Link>
+                <Link
+                  className="me-3 p-2 text-dark text-decoration-none"
+                  to="/auth/register"
+                >
+                  Register
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link
+                  className="me-3 p-2 text-dark text-decoration-none"
+                  to="/user"
+                >
+                  {authState?.user?.firstname ? (
+                    <span className="text-primary text-capitalize fw-bold">
+                      {authState?.user?.firstname}
+                    </span>
+                  ) : (
+                    "My Account"
+                  )}
+                </Link>
+                <a
+                  className="p-2 text-dark text-decoration-none"
+                  href="#"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </a>
+              </>
+            )}
           </nav>
         </div>
       </header>
